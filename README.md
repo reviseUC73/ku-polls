@@ -21,13 +21,6 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 
 
 
-[django-tutorial]: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
-
-
-
-
-
-
 ## Online Polls And Surveys
 
 An application for conducting online polls and surveys based
@@ -41,8 +34,3 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 
 to be added.
 
-All project documents are in the [Project Wiki](../../wiki/Home).
-
-- [Vision Statement](../../wiki/Vision%20Statement)
-
-[django-tutorial]: TODO-write-the-tutorial-URL-here
