@@ -6,7 +6,7 @@ A web application for polls and survey at Kasetsart University
 An application for conducting a poll or survey, written in Python using Django. It is based on the [Django Tutorial project][django-tutorial],
 with additional functionality.
 
-This application is part of the [Individual Software Process](https://cpske.github.io/ISP) course at [Kasets
+This application is part of the [Individual Software Process](https://cpske.github.io/ISP) course at Kasetsart University.
 ## Install and Run
 
 to be added.
