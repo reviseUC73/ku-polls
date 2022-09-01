@@ -1,24 +1,31 @@
-# ku-polls
-When application for polls and survey at ku
+ ku-polls
 
-## Online Polls for Kasetsart University
+A web application for polls and survey at Kasetsart University
 
-An application for conducting a poll or survey, written in Python using Django. It is based on the [Django Tutorial project](https://docs.djangoproject.com/en/4.1/intro/tutorial01/),
+## Online Polls And Surveys
+An application for conducting a poll or survey, written in Python using Django. It is based on the [Django Tutorial project][django-tutorial],
 with additional functionality.
 
-This application is part of the [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://ku.ac.th/).
+This application is part of the [Individual Software Process](https://cpske.github.io/ISP) course at Kasetsart University.
+## Install and Run
 
-## How to Install and Run
+to be added.
 
-To be added.
 
 ## Project Documents
 
-All project documents are in the [Project Wiki](../../wiki/Home)
+All project documents are in the [Project Wiki](../../wiki/Home]
 
-- [Vision Statement](../../wiki/Vision%20Statement)
-- [Requirements](../../wiki/Requirements)
-- [Project Plan](../../wiki/Development%20Plan)
-- [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board]() (TODO - valid link to task board)
+1. [Wiki Home](../../wiki/Home)  
+2. [Vision statement](../../wiki/Vision-Statement)
+3. [Requirements](../../wiki/Requirements)
+4. [Project Plan](../../wiki/Development%20Plan)
 
-[django-tutorial]: (https://docs.djangoproject.com/en/4.1/intro/tutorial01/)
+## Iteration Plan
+
+* [Iteration1 Plan]
+
+
+
+App created as part of the [Individual Software Process](
+https://cpske.github.io/ISP) course at Kasetsart University.
