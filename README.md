@@ -29,3 +29,4 @@ All project documents are in the [Project Wiki](../../wiki/Home]
 
 App created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at Kasetsart University.
+[django-tutorial]: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
