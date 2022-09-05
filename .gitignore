@@ -131,4 +131,4 @@ dmypy.json
 # plugin vs code
 .vscode/
 
-.DS_Store
+.DS_Store/
