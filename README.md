@@ -23,12 +23,3 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 
 [django-tutorial]: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
 
-
-## Iteration Plan
-
-* [Iteration1 Plan]
-
-
-
-App created as part of the [Individual Software Process](
-https://cpske.github.io/ISP) course at Kasetsart University.
