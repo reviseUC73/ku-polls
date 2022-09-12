@@ -22,49 +22,28 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
-    # def get_queryset(self):
-    #     """
-    #     Excludes any questions that aren't published yet.
-    #     """
-    #     return Question.objects.filter(pub_date__lte=timezone.now())
-
-    # def get(self, request, pk_id=None):
-    #     question = get_object_or_404(Question, pk=pk_id)
-    #     # print("rew")
-    #     if not question.can_vote():
-    #         messages.error(request, f"Yo man you can't vote on \"{question.question_text}\" poll anymore its to late. "
-    #                        f"\U0001F612")
-    #         return HttpResponseRedirect(reverse('polls:index'))
-    #     else:
-    #         return render(request, 'polls/detail.html', {'question': question, })
-    
-    # def get(self, request, pk):
-    #     """Return different pages in accordance to can_vote and is_published."""
-    #     question = get_object_or_404(Question, pk=pk)
-    #     if not question.can_vote():
-    #         messages.error(request, 'This poll not publish yet.')
-    #         return HttpResponseRedirect(reverse('polls:index'))
-    #     elif not question.can_vote():
-    #         messages.error(request, 'This poll is ended.')
-    #         return HttpResponseRedirect(reverse('polls:results', args=(pk,)))
-    #     else:
-    #         return render(request, 'polls/detail.html', {'question': question, })
-
-
-
-
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = 'polls/results.html'
-
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-    
+    def get(self, request, pk):
+        """when your website can't found poll or this poll expired ,it come to main poll page"""
+        try:
+            self.question = Question.objects.get(pk=pk)
+            if self.question.can_vote():
+                return render(request, 'polls/detail.html', {'question': self.question})
+            else:
+                messages.error(request, "The poll can't vote at this time.")
+                return HttpResponseRedirect(reverse('polls:index'))
+        except Question.DoesNotExist:
+            messages.error(request, "This poll has not this question")
+            return HttpResponseRedirect(reverse('polls:index'))
 
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
