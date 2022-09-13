@@ -24,7 +24,7 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 5. Iteration Plan
 
 - [Iteration 1 Plan](https://github.com/reviseUC73/ku-polls/wiki/Iteration-1-Plan)
-- [Iteration 2 Plan](https://github.com/reviseUC73/ku-polls/wiki/Iteration-2-Plan)
+- [Iteration 2 Plan](https://github.com/reviseUC73/ku-polls/wiki/Iteration-1-Plan)
 
 6. [Task Borad](https://github.com/users/reviseUC73/projects/3)
 
