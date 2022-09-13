@@ -9,7 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from pydoc_data.topics import topics
+from typing import List
 
+from decouple import config, Csv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fl^=v409w9@um!*9-zo1!zr4z9!-rw+is%f*d$1f@ylro6lw9f'
+SECRET_KEY = config("secret_key", cast=str, default='django-insecure-fl^=v409w9@um!*9-zo1!zr4z9!-rw+is%f*d$1f@ylro6lw9f')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("debug", cast=bool, default=True)
+
 
 ALLOWED_HOSTS = []
 
@@ -107,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE= config("TIME_ZONE ", cast=str, default="Asia/Bangkok")
 
 USE_I18N = True
 
