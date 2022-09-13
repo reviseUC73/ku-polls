@@ -11,23 +11,23 @@ class Question(models.Model):
     end_date = models.DateTimeField('end date', null=True)
 
     def was_published_recently(self):
-        """This function it will return true when poll is publish recently."""
+        """Return boolean his function it will return true when poll is publish recently return true."""
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def is_published(self) -> bool:
-        """Return True if current date is on or after question’s publication date."""
+        """Return boolean if current date is on or after question’s publication date return true."""
         now = timezone.now()
         return now >= self.pub_date
 
     def can_vote(self):
-        """Return True if voting is currently allowed for this question."""
+        """Return boolean if voting is currently allowed for this question return true."""
         if self.end_date is None:
             return self.is_published()
         return self.pub_date <= timezone.now() <= self.end_date
     
     def __str__(self):
-        """Return name of question"""
+        """Return readable string name of question"""
         return self.question_text
 
 
@@ -37,4 +37,5 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def __str__(self):
+        """Return readable string name of choice"""
         return self.choice_text

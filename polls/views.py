@@ -8,6 +8,7 @@ from django.contrib import messages
 
 
 class IndexView(generic.ListView):
+    """View for index.html."""
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -46,6 +47,7 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 def vote(request, question_id):
+    """Add vote to choice of the current question."""
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -64,6 +66,4 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/results.html', {'question': question})
+
