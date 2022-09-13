@@ -4,7 +4,8 @@
 
 {% if latest_question_list %}
 <ul>
-  <h1 id="title" style="color: white">\\ KU Polls //</h1>
+<!-- <fieldset> -->
+  <h1 id="title" style="color: red">\\ KU Polls //</h1>
   {% for question in latest_question_list %} {% if question.can_vote %}
   <p>
     
@@ -24,13 +25,14 @@
   <p id="link">
     {{ question.question_text }}
     <button id="button-vote">Vote</button>
-    <button id="button">
-      <a id="button text" href="{% url 'polls:results' question.id %}">
+    <button id="button result">
+      <a id="button result" href="{% url 'polls:results' question.id %}">
         Result
       </a>
     </button>
   </p>
   {% endif %} {% endfor %}
+  
 </ul>
 {% else %}
 <p>No polls are available.</p>
