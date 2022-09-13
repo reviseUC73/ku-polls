@@ -5,12 +5,15 @@
 <h1 style="color :yellow" >{{ question.question_text }}</h1>
 
 <table >
-            <h3 style="color :red">Choices Votes</h3>
+        <tr>
+            <th style="color :red">Choices </h3>
+            <th style="color :red"> Votes</h3>
+        </tr>
         {% for choice in question.choice_set.all %}
         <tr>
-            <td style="color :white">{{ choice.choice_text }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <th style="color :white">{{ choice.choice_text }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
             
-            <td style="color :white">{{ choice.votes }}</td>
+            <th style="color :white">{{ choice.votes }}</td>
         </tr>
         {% endfor %}
 </table>
