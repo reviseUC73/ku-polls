@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("secret_key", cast=str, default='django-insecure-fl^=v409w9@um!*9-zo1!zr4z9!-rw+is%f*d$1f@ylro6lw9f')
+SECRET_KEY = config("secret_key", cast=str,
+                    default='django-insecure-fl^=v409w9@um!*9-zo1!zr4z9!-rw+is%f*d$1f@ylro6lw9f')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("debug", cast=bool, default=True)
@@ -41,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
 
+]
 
 
 MIDDLEWARE = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'UTC'
-TIME_ZONE= config("TIME_ZONE ", cast=str, default="Asia/Bangkok")
+TIME_ZONE = config("TIME_ZONE ", cast=str, default="Asia/Bangkok")
 
 USE_I18N = True
 
@@ -128,3 +129,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTHENTICATION_BACKENDS = [
+    # username/password authentication
+    'django.contrib.auth.backends.ModelBackend',
+]
