@@ -45,7 +45,7 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
+# @login_required
 def vote(request, question_id):
     """Add vote to choice of the current question."""
     question = get_object_or_404(Question, pk=question_id)

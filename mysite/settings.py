@@ -136,3 +136,5 @@ AUTHENTICATION_BACKENDS = [
     # username/password authentication
     'django.contrib.auth.backends.ModelBackend',
 ]
+LOGIN_REDIRECT_URL = '/polls/'    # show list of polls
+LOGOUT_REDIRECT_URL = '/accounts/login/'
