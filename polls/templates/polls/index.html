@@ -18,7 +18,14 @@
   <!-- when you login -->
   {% if user.is_authenticated %}
   <h4 style="text-align:right;color:white;float:right"> 
-    <span>Username : &nbsp;{{ user.username }}&nbsp; </span>&nbsp;&nbsp;&nbsp;</h4>
+    <span>Username : &nbsp;{{ user.username }}&nbsp; </span>&nbsp;&nbsp;&nbsp;
+    <nav>
+      <button type="button">
+        <a href="{% url 'logout'%}?next={{request.path}}">Logout
+      </a>
+    </button>&nbsp;&nbsp;&nbsp;
+  </nav>
+  </h4>
   
   <!-- you don't login -->
     {% else %}
