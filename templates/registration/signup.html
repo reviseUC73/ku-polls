@@ -1,16 +1,17 @@
 {% block content %}
-<h2 style="color: white">Register</h2>
+<h2 style="color: black">Register</h2>
 <form method="POST">
   {% csrf_token %}
   <table>
     {{ form.as_table }}
     <tr>
-      <td colspan="2">
-        <button type="submit">Register</button> |
-        <!-- come to main poll for see only -->
+      <td colspan="3">
+        <button type="submit">Register</button>  
+        <!-- ome to main poll for see only -->
         <a href="{% url 'polls:index' %}"
           ><button type="button">Home</button></a
         >
+        
       </td>
     </tr>
   </table>
