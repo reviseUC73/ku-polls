@@ -7,6 +7,9 @@ from .models import Choice, Question
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 class IndexView(generic.ListView):
     """View for index.html."""
@@ -25,7 +28,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
     """View for detail.html page."""
     model = Question
     template_name = 'polls/detail.html'
-    
+
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
@@ -58,7 +61,7 @@ def vote(request, question_id):
     user = request.user
     if not user.is_authenticated:
         return redirect('login')
-
+        # return redirect('/accounts/login/')
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -71,6 +74,14 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
+        # user = request.user
+        # vote = get_vote_for_user(question, user)
+        # if not vote:
+        #     vote = selected_choice.vote_set.create(
+        #         user=user, question=question)
+        # else:
+        #     vote.choice = selected_choice
+        # vote.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
