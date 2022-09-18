@@ -57,6 +57,8 @@ def vote(request, question_id):
     """Add vote to choice of the current question."""
 
     user = request.user
+    print("current user is", user.id, "login", user.username)
+    print("Real name:", user.first_name, user.last_name)
     if not user.is_authenticated:
         return redirect('login')
         # return redirect('/accounts/login/')
