@@ -21,15 +21,19 @@
       >{{ question.question_text }}</a
     >
   </p>
-  {% elif question.can_vote %}
-  <p id="link">
-    {{ question.question_text }}
-    <button id="button-vote">Vote</button>
-    <button id="button result">
-      <a id="button result" href="{% url 'polls:results' question.id %}">
+  {% elif not question.can_vote %}
+  <p>
+    
+    <button id="button">
+      <a id="button-text" > Vote </a>
+    </button>
+    <button id="button">
+      <a id="button-text" href="{% url 'polls:results' question.id %}">
         Result
       </a>
     </button>
+    <a id= "link not use" 
+    ><a style="color: white">{{ question.question_text }}</a>
   </p>
   {% endif %} {% endfor %}
   

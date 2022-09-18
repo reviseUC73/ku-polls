@@ -1,11 +1,12 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class IndexView(generic.ListView):
     """View for index.html."""
@@ -20,9 +21,11 @@ class IndexView(generic.ListView):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
+    """View for detail.html page."""
     model = Question
     template_name = 'polls/detail.html'
+    
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
@@ -42,12 +45,20 @@ class DetailView(generic.DetailView):
             messages.error(request, "This poll has not this question")
             return HttpResponseRedirect(reverse('polls:index'))
 
+
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-# @login_required
+
+
+@login_required
 def vote(request, question_id):
     """Add vote to choice of the current question."""
+
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -64,6 +75,3 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
-
