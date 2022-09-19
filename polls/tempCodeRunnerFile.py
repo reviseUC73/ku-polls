@@ -1,1 +1,0 @@
-get_vote_for_user
