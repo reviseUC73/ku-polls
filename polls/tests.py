@@ -1,9 +1,12 @@
+"""Tests of Django polls application for authentication using Django pytest."""
 from django.test import TestCase
 import datetime
-from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
-from .models import Question
+from django.contrib.auth.models import User
+from .models import Question, Choice, Vote
+import django.test
+
 
 
 class QuestionModelTests(TestCase):
@@ -57,15 +60,16 @@ class QuestionModelTests(TestCase):
         """test when end_date of poll is correctly a current time"""
         time = timezone.now()
         recent_question = Question(
-        pub_date= time - datetime.timedelta(minutes=59, seconds=59))
+            pub_date=time - datetime.timedelta(minutes=59, seconds=59))
         self.assertIs(recent_question.can_vote(), True)
 
     def test_can_vote_poll_expired(self):
         """test poll Can vote, if poll expired. It should be return False """
         time = timezone.now()
         recent_question = Question(pub_date=time - datetime.timedelta(hours=24, minutes=59, seconds=59),
-        end_date=time - datetime.timedelta(hours=2, minutes=59, seconds=59))
+                                   end_date=time - datetime.timedelta(hours=2, minutes=59, seconds=59))
         self.assertIs(recent_question.can_vote(), False)
+
 
 def create_question(question_text, days):
     """
@@ -75,6 +79,8 @@ def create_question(question_text, days):
     """
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
+
+
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
         """
@@ -137,7 +143,7 @@ class QuestionDetailViewTests(TestCase):
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
-        returns a 404 not found.
+        returns a 302 not found.
         """
         future_question = create_question(
             question_text='Future question.', days=5)
@@ -152,6 +158,40 @@ class QuestionDetailViewTests(TestCase):
         """
         past_question = create_question(
             question_text='Past Question.', days=-5)
-        url = reverse('polls:detail', args=(past_question.id,))
+        url = reverse('polls:results', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+
+class UserAuthTest(django.test.TestCase):
+    """Tests of authentication."""
+
+    def setUp(self):
+        """Superclass setUp creates a Client object and initializes database."""
+        super().setUp()
+        self.username = "rew1233"
+        self.password = "Admin1234@"
+        self.user1 = User.objects.create_user(
+            username=self.username,
+            password=self.password,
+            email="yo@gmail.com")
+        self.user1.first_name = "rewkub"
+        self.user1.save()
+
+    def test_login_view(self):
+        """Test that a user can login via the login view."""
+        login_url = reverse("login")
+        response = self.client.get(login_url)
+        self.assertEqual(200, response.status_code)
+        data_user = {"username": "rew1233",
+                     "password": "Admin1234@"
+                     }
+        response = self.client.post(login_url, data_user)
+        self.assertEqual(302, response.status_code)
+        self.assertEqual('/polls/', reverse("polls:index"))
+        self.assertRedirects(response, reverse("polls:index"))
+
+
+    
+
+    
