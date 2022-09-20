@@ -2,10 +2,42 @@
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 
+<style>
+  span {
+  background-color: #c0c0c0;
+}
+
+</style>
+
 {% if latest_question_list %}
 <ul>
 <!-- <fieldset> -->
-  <h1 id="title" style="color: red">\\ KU Polls //</h1>
+
+  <h1 id="title" style="color: red;text-align:left;float:left;">\\ KU Polls // </h1>
+
+  <!-- when you login -->
+  {% if user.is_authenticated %}
+  <h4 style="text-align:right;color:white;float:right"> 
+    <span>Username : &nbsp;{{ user.username }}&nbsp; </span>&nbsp;&nbsp;&nbsp;
+    <nav>
+      <button type="button">
+        <a href="{% url 'logout'%}?next={{request.path}}">Logout
+      </a>
+    </button>&nbsp;&nbsp;&nbsp;
+  </nav>
+  </h4>
+  
+  <!-- you don't login -->
+    {% else %}
+  <h4 style="text-align:right;color:white;float:right"> 
+    <span>Please <button>
+      <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+    </button></h4>
+
+  {% endif %}
+  <hr style="clear:both;"/>
+
+  <!-- show question -->
   {% for question in latest_question_list %} {% if question.can_vote %}
   <p>
     
@@ -21,15 +53,19 @@
       >{{ question.question_text }}</a
     >
   </p>
-  {% elif question.can_vote %}
-  <p id="link">
-    {{ question.question_text }}
-    <button id="button-vote">Vote</button>
-    <button id="button result">
-      <a id="button result" href="{% url 'polls:results' question.id %}">
+  {% elif not question.can_vote %}
+  <p>
+    
+    <button id="button">
+      <a id="button-text" > Vote </a>
+    </button>
+    <button id="button">
+      <a id="button-text" href="{% url 'polls:results' question.id %}">
         Result
       </a>
     </button>
+    <a id= "link not use" 
+    ><a style="color: white">{{ question.question_text }}</a>
   </p>
   {% endif %} {% endfor %}
   

@@ -1,25 +1,39 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
   {% csrf_token %}
   <fieldset>
-    <legend><h1 style="color:red">{{ question.question_text }}</h1></legend>
+    <legend><h1 style="color: red">{{ question.question_text }}</h1></legend>
     {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>
-    {% endif %} {% for choice in question.choice_set.all %}
+    {% endif %} 
+  {% for choice in question.choice_set.all %} 
+    {% if choice.choice_text == select_vote %}
+    <input
+      type="radio"
+      name="choice"
+      id="selected"
+      value="{{ choice.id }}"
+      checked
+    />
+    <label style="color: white" for="choice{{ forloop.counter }}"
+      >{{ choice.choice_text }} </label
+    ><br />
+
+    {% else %}
     <input
       type="radio"
       name="choice"
       id="choice{{ forloop.counter }}"
       value="{{ choice.id }}"
     />
-    <label style="color : white" for="choice{{ forloop.counter }}">{{ choice.choice_text }} </label
+    <label style="color: white" for="choice{{ forloop.counter }}"
+      >{{ choice.choice_text }} </label
     ><br />
-    {% endfor %}
-    
-
+    {% endif %}
+  {% endfor %}
   </fieldset>
   <input type="submit" value="Vote" />
   <a href="{% url 'polls:index' %}"><button type="button">Back</button></a>
