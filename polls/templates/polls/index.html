@@ -9,6 +9,8 @@
 
 </style>
 
+
+
 {% if latest_question_list %}
 <ul>
 <!-- <fieldset> -->
@@ -36,7 +38,12 @@
 
   {% endif %}
   <hr style="clear:both;"/>
-
+  {% if messages %}
+  {% for text in messages %}
+    <h4 id="text error_message" style="color: yellowgreen"> {{text}} </h4>
+  {% endfor %}
+{% endif %}
+    
   <!-- show question -->
   {% for question in latest_question_list %} {% if question.can_vote %}
   <p>

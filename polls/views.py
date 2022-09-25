@@ -1,4 +1,3 @@
-from unittest import result
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -20,11 +19,12 @@ class IndexView(generic.ListView):
         Return the last five published questions (not including those set to be
         published in the future).
         """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
-    """View for detail.html page."""
+    """View for detail.html page"""
     model = Question
     template_name = 'polls/detail.html'
 
@@ -35,7 +35,10 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, pk):
-        """when your website can't found poll or this poll expired ,it come to main poll page"""
+        """
+        when your website can't found poll or this poll expired ,
+        it come to main poll page
+        """
         user = request.user
         question = get_object_or_404(Question, pk=pk)
         try:
@@ -47,9 +50,12 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
                     if select.question == question:
                         select_vote = select.choice.choice_text
 
-                return render(request, 'polls/detail.html', {'question': self.question, "select_vote": select_vote})
+                return render(request, 'polls/detail.html',
+                              {'question': self.question,
+                               "select_vote": select_vote})
             else:
-                messages.error(request, "The poll can't vote at this time.")
+                messages.error(request,
+                               "The poll can't vote at this time.")
                 return HttpResponseRedirect(reverse('polls:index'))
         except Question.DoesNotExist:
             messages.error(request, "This poll has not this question")
@@ -63,14 +69,17 @@ class ResultsView(generic.DetailView):
 
 @login_required(login_url='/accounts/login/')
 def vote(request, question_id):
-    """Add vote to choice of the current question."""
+    """
+    Add vote to choice of the current question.
+    """
     user = request.user
     if not user.is_authenticated:
         return redirect('login')
         # return redirect('/accounts/login/')
     question = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        selected_choice = question.choice_set.get(
+            pk=request.POST['choice'])
 
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
@@ -94,7 +103,6 @@ def vote(request, question_id):
                 user=user, question=question)
 
         vote.save()
-        # selected_choice.votes += 1
-        # selected_choice.save()
 
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        return HttpResponseRedirect(reverse('polls:results',
+                                            args=(question.id,)))
