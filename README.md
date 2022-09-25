@@ -19,6 +19,16 @@ go to project directory
 ```
 cd ku-polls
 ```
+Start the virtual environment.
+
+- on macos and linux
+```
+source env/bin/activate 
+```
+- on windows
+```
+. env/bin/activate
+```
 make sure that you install all the requirements by run this command, its can be whether pip, pip3
 ```
 pip install -r requirements.txt
@@ -26,6 +36,28 @@ pip install -r requirements.txt
 you have to create file name `.env`
 file template looks like [sample.env](https://github.com/reviseUC73/ku-polls/blob/iteration3/mysite/sample.env) you can modify value and copy it into `.env`
 
+Create `.env` and write.
+```
+SECRET_KEY = secret-key-value-without-quotes 
+DEBUG = False
+TIME_ZONE = Asia/Bangkok
+```
+
+Create a new database by running migrations the database.
+```
+python3 manage.py migrate
+```
+Import and Export the database.
+
+Import the database python3 manage.py loaddata.
+
+```
+python3 manage.py loaddata data/polls.json data/users.json
+```
+Export the database `python3 manage.py dumpdata` (Optional). Try dump all polls data to a file (-o) named `polls.json`
+```
+python3 manage.py dumpdata --indent=2 -o polls.json polls
+```
 In this time you can run server by use command 
 ```
 python manage.py runserver
