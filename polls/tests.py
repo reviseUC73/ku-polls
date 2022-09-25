@@ -4,9 +4,8 @@ import datetime
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Question, Choice, Vote
+from .models import Question
 import django.test
-
 
 
 class QuestionModelTests(TestCase):
@@ -34,13 +33,15 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns True for questions whose pub_date
         is within the last day.
         """
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        time = timezone.now() - datetime.timedelta(
+            hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
     def test_can_vote_in_future(self):
         """test poll Can vote, if poll doesn't open. It should be return False """
-        time = timezone.now() + datetime.timedelta(hours=23, minutes=59, seconds=59)
+        time = timezone.now() + datetime.timedelta(
+            hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.can_vote(), False)
 
@@ -52,7 +53,8 @@ class QuestionModelTests(TestCase):
 
     def test_is_published(self):
         """test function is_published by it Return true when poll is opened."""
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        time = timezone.now() - datetime.timedelta(
+            hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.is_published(), True)
 
@@ -66,8 +68,11 @@ class QuestionModelTests(TestCase):
     def test_can_vote_poll_expired(self):
         """test poll Can vote, if poll expired. It should be return False """
         time = timezone.now()
-        recent_question = Question(pub_date=time - datetime.timedelta(hours=24, minutes=59, seconds=59),
-                                   end_date=time - datetime.timedelta(hours=2, minutes=59, seconds=59))
+        recent_question = Question(
+            pub_date=time - datetime.timedelta(
+                hours=24, minutes=59, seconds=59),
+            end_date=time - datetime.timedelta(
+                hours=2, minutes=59, seconds=59))
         self.assertIs(recent_question.can_vote(), False)
 
 
@@ -190,8 +195,3 @@ class UserAuthTest(django.test.TestCase):
         self.assertEqual(302, response.status_code)
         self.assertEqual('/polls/', reverse("polls:index"))
         self.assertRedirects(response, reverse("polls:index"))
-
-
-    
-
-    
