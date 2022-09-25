@@ -53,7 +53,7 @@ All project documents are in the [Project Wiki](../../wiki/Home)
 
 
 6. [Task Borad](https://github.com/users/reviseUC73/projects/3)
-
+ 
 [django-tutorial]: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
  
  # Running KU Polls
