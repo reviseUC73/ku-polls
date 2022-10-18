@@ -1,4 +1,6 @@
 # ku-polls
+[![Unittest](https://github.com/reviseUC73/ku-polls/actions/workflows/python-app.yml/badge.svg)](https://github.com/reviseUC73/ku-polls/actions/workflows/python-app.yml)
+[![codecov](https://codecov.io/gh/reviseUC73/ku-polls/branch/master/graph/badge.svg?token=UMFYY8R20C)](https://codecov.io/gh/reviseUC73/ku-polls)
 
 A web application for polls and survey at Kasetsart University
 
